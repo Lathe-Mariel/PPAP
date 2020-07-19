@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ppap.PrimaryController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="testButton" mnemonicParsing="false" onAction="#fileOpen" text="Open PDF File" />
+                  <MenuItem fx:id="testItem2" mnemonicParsing="false" onAction="#fileSave" text="File Save" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#zoomPlus" text="Zoom+" />
+                  <MenuItem mnemonicParsing="false" onAction="#zoomMinus" text="Zoom-" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" BorderPane.alignment="TOP_LEFT">
+         <content>
+            <Group>
+               <children>
+                  <VBox fx:id="existPDFVBox" fillWidth="false" prefHeight="800.0" prefWidth="1200.0" />
+               </children>
+            </Group>
+         </content>
+      </ScrollPane>
+   </center>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ColorPicker fx:id="colorPicker1" onAction="#colorChanged">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin></ColorPicker>
+            <Slider fx:id="lineWidth" blockIncrement="1.0" max="10.0" min="1.0" value="1.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </Slider>
+            <Slider fx:id="lineOpacity" blockIncrement="1.0" min="1.0" value="100.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </Slider>
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <Label fx:id="lowerLabel" alignment="BOTTOM_LEFT" BorderPane.alignment="BOTTOM_LEFT" />
+   </bottom>
+   <left>
+      <ToolBar fx:id="penToolBar" orientation="VERTICAL" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
