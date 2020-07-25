@@ -53,12 +53,12 @@ public class PDFWorker {
         this.penCase = penCase;
     }
     
-    public ArrayList<ArrayList> readPDF2(File file) throws IOException{
+    public ArrayList<PDFPage> readPDF2(File file) throws IOException{
         
         try (final PDDocument document = PDDocument.load(file)){
             List<COSBase> arguments = new ArrayList<>();
             PDPageTree list = document.getPages();
-            System.out.println("list length: " + list.getCount());
+            System.out.println("list length(pages): " + list.getCount());
             for (PDPage page : list) {
                 PDFStreamParser parser = new PDFStreamParser(page);
                 parser.parse();
@@ -86,9 +86,9 @@ public class PDFWorker {
                     }
                 }
                 
-                ArrayList<PDFPath> pdfPathList = PDF2FXConverter.pdf2Fx(page);
-                if(pdfPathList != null){
-                }
+                //ArrayList<PDFPath> pdfPathList = PDF2FXConverter.pdf2Fx(page);
+                //if(pdfPathList != null){
+                //}
           
             }
         } catch (IOException e){
