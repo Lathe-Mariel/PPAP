@@ -1,0 +1,89 @@
+PageDrawer#public void drawPage(Graphics g, PDRectangle pageSize) throws IOException
+    {
+        graphics = (Graphics2D) g;
+ 
+
+        processPage(getPage());
+
+        for (PDAnnotation annotation : getPage().getAnnotations(annotationFilter))
+        {
+            showAnnotation(annotation);
+        }
+
+        graphics = null;
+    }
+
+PDFGraphicStreamEngine#public void showAnnotation();
+
+PDFGraphicStreamEngine#public void showAnnotation(PDAnnotation annotation) throws IOException
+    {
+    
+
+        PDAppearanceDictionary appearance = annotation.getAppearance();
+        if (appearance == null || appearance.getNormalAppearance() == null)
+        {
+            annotation.constructAppearances(renderer.document);
+        }
+        if (annotation.isNoRotate() && getCurrentPage().getRotation() != 0)
+        {
+            PDRectangle rect = annotation.getRectangle();
+            AffineTransform savedTransform = graphics.getTransform();
+
+            graphics.rotate(Math.toRadians(getCurrentPage().getRotation()),
+                    rect.getLowerLeftX(), rect.getUpperRightY());
+            super.showAnnotation(annotation);
+            graphics.setTransform(savedTransform);
+        }
+        else
+        {
+            super.showAnnotation(annotation);
+        }
+    }
+
+
+PDFStreamEngine#public void showAnnotation(PDAnnotation annotation) throws IOException
+    {
+        PDAppearanceStream appearanceStream = getAppearance(annotation);
+        if (appearanceStream != null)
+        {
+            processAnnotation(annotation, appearanceStream);
+        }
+    }
+
+
+PDFStreamEngine#protected void processAnnotation(PDAnnotation annotation, PDAppearanceStream appearance){
+	 processStreamOperators(appearance);
+}
+
+  private void processStreamOperators(PDContentStream contentStream) throws IOException
+    {
+        List<COSBase> arguments = new ArrayList<>();
+        PDFStreamParser parser = new PDFStreamParser(contentStream);
+        Object token = parser.parseNextToken();
+        while (token != null)
+        {
+            if (token instanceof COSObject)
+            {
+                arguments.add(((COSObject) token).getObject());
+            }
+            else if (token instanceof Operator)
+            {
+                processOperator((Operator) token, arguments);
+                arguments = new ArrayList<>();
+            }
+            else
+            {
+                arguments.add((COSBase) token);
+            }
+            token = parser.parseNextToken();
+        }
+    }
+
+
+
+
+
+
+
+public class PDAppearanceStream extends PDFormXObject
+public class PDFormXObject extends PDXObject implements PDContentStream

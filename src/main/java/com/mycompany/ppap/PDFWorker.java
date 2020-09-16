@@ -137,10 +137,13 @@ public class PDFWorker {
                     tempPDFPage.shapeField.getChildren().add(newPath);
                 }
             }
-            //FXGraphics2D g = new FXGraphics2D(tempPDFPage.backCanvas.getGraphicsContext2D());
+            
+            FXGraphics2D g = new FXGraphics2D(tempPDFPage.backCanvas.getGraphicsContext2D());
             //tempPDFPage.page = page;
+            
             //g.clearRect(0, 0, tempPDFPage.canvasWidth, tempPDFPage.canvasHeight);
-            //renderer.renderPageToGraphics(i, g, 1);
+            renderer.renderPageToGraphics(i, g, 1);
+            
             newPages.add(tempPDFPage);
         }
         document.close();

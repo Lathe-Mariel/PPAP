@@ -37,11 +37,19 @@ public class PDF2FXConverter {
     public PDF2FXConverter(){
         super();
     }
-
+    
     public static ArrayList<PDFPath> pdf2Fx(PDPage pdPage){
-        List<COSBase> arguments = new ArrayList<>();
+        
         ArrayList<PDFPath> readObjects = new ArrayList<PDFPath>();
-        PDFPath newObject =null;
+        
+        parseAndTranslate(pdPage, readObjects);
+        
+        return readObjects;
+    }
+    
+    static private void parseAndTranslate(PDPage pdPage, ArrayList<PDFPath> readObjects){
+        List<COSBase> arguments = new ArrayList<>();
+        PDFPath newObject = null;
         
         try{
             PDFStreamParser parser = new PDFStreamParser(pdPage);
@@ -94,6 +102,5 @@ public class PDF2FXConverter {
         }catch(IOException e ){
             
         }
-        return readObjects;
     }
 }

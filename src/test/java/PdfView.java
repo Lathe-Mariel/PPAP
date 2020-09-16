@@ -22,7 +22,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 
 public class PdfView extends Region {
 
@@ -166,7 +165,7 @@ public class PdfView extends Region {
 		Graphics2D graphics = null;
 		try {
 			graphics = bimg.createGraphics();
-			graphics.setBackground(Color.WHITE);
+			//graphics.setBackground(Color.WHITE);
 			graphics.clearRect(0, 0, (int)w, (int)h);
 			
 			PDFRenderer renderer = new PDFRenderer(document);
